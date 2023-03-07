@@ -4,7 +4,38 @@
     <title>Back End Assessment</title>
   </head>
   <body class="container">
-    <button id="complimentButton">Get a compliment</button>
+    <button id="fortuneBtn">Reveal your Fortune</button>
+    <br>
+    <br>
+    <h3>How are you feeling today?!</h3>
+    <select id="feelings">
+      <option value="">Select from this List</option>
+      <option value="positive">AMAZING!!!</option>
+      <option value="positive">GREAT</option>
+      <option value="positive">Good</option>
+      <option value="negative">Okay</option>
+      <option value="negative">Ehh Soo Soo</option>
+      <option value="negative">Bad</option>
+      <option value="negative">TERRIBLE</option>
+    </select>
+    <h3>Create your SuperHuman </h3>
+    <form id ="form">
+    
+  <label for="firstName">First name:</label><br>
+  <input type="text" name="firstName" id="firstName"><br>
+  
+  <label for="lastName">Last name:</label><br>
+  <input type="text" name="lastName" id="lastName"><br>
+    <br>
+    <button type="submit" id="createBtn">Create User</button>
+      
+    </form>
+
+    <ul id="user-list"></ul>
+
+    <button id="updateBtn">Update User</button>
+    <button id="deleteBtn">Delete User</button>
+
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="main.js"></script>
