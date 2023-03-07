@@ -1,3 +1,6 @@
+// hardcode test examples:
+let users = [{ firstName: "Dwayne", lastName: "Foreman" }];
+
 module.exports = {
   getFortune: (req, res) => {
     const fortunes = [
@@ -30,11 +33,10 @@ module.exports = {
   },
 
   createUser: (req, res) => {
-    let users = [];
     const { firstName, lastName } = req.body;
     const user = { firstName, lastName };
     users.push(user);
-    res.status(200).send("User created successfully.");
+    res.status(200).send(users);
   },
 
   updateUser: (req, res) => {

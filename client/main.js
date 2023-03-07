@@ -7,21 +7,6 @@ const createBtn = document.getElementById("createBtn");
 const updateBtn = document.getElementById("updateBtn");
 const deleteBtn = document.getElementById("deleteBtn");
 
-//--------------------LIST---------------------------------------
-
-const renderUserList = (users) => {
-  userList.innerHTML = "";
-  users.forEach((user, index) => {
-    const li = document.createElement("li");
-    li.textContent = `${user.firstName} ${user.lastName}`;
-    userList.appendChild(li);
-  });
-};
-
-axios.get("http://localhost:4000/api/users/").then((res) => {
-  renderUserList(res.data);
-});
-
 //--------------------FUNCTIONS---------------------------------------
 
 const getFortune = () => {
@@ -45,12 +30,23 @@ const createUser = (eventTrigger) => {
   axios
     .post("http://localhost:4000/api/users/", { firstName, lastName })
     .then((res) => {
-      axios.get("http://localhost:4000/api/users/").then((res) => {
-        renderUserList(res.data);
-      });
+      renderUserList(res.data);
     });
-  form.target.reset();
+  eventTrigger.target.form.reset();
 };
+
+const renderUserList = (users) => {
+  userList.innerHTML = "";
+  users.forEach((user, index) => {
+    const li = document.createElement("li");
+    li.textContent = `${user.firstName} ${user.lastName}`;
+    userList.appendChild(li);
+  });
+};
+
+axios.get("http://localhost:4000/api/users/").then((res) => {
+  renderUserList(res.data);
+});
 
 const updateUser = (eventTrigger) => {
   eventTrigger.preventDefault();
@@ -71,20 +67,30 @@ const updateUser = (eventTrigger) => {
     });
   eventTrigger.target.reset();
 };
-
 const deleteUser = () => {
-  const firstName = document.getElementById("deleteFirstName").value;
-  const lastName = document.getElementById("deleteLastName").value;
+  const firstNameInput = document.getElementById("deleteFirstName");
+  const lastNameInput = document.getElementById("deleteLastName");
+  const firstName = firstNameInput.value;
+  const lastName = lastNameInput.value;
+
+  if (!firstName || !lastName) {
+    alert("Please enter a first and last name.");
+    return;
+  }
 
   axios
     .delete(`http://localhost:4000/api/users/${firstName}/${lastName}`)
-    .then((response) => {
-      console.log(response);
-      document.getElementById("delete-form").reset();
+    .then((res) => {
+      axios.get("http://localhost:4000/api/users/").then((res) => {
+        renderUserList(res.data);
+      });
     })
-    .catch((error) => {
-      console.log(error);
+    .catch((err) => {
+      console.error(err);
     });
+
+  firstNameInput.value = "";
+  lastNameInput.value = "";
 };
 
 //--------------------TRIGGERS--------------------------------------
